@@ -1,20 +1,92 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Hotel Booking</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+        .container {
+            width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
 <body>
 
-<h2>HTML Forms</h2>
+<div class="container">
+    <h2>Hotel Booking Form</h2>
 
-<form action="/action_page.php">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="text" id="phone" name="phone" value="Phone"><br><br>
-  <input type="submit" value="Submit">
-</form> 
+    <form onsubmit="return validateForm()">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="text" id="phone" placeholder="Enter Phone Number">
+        <input type="text" id="email" placeholder="Enter Email">
 
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+        <select id="hotel">
+            <option value="">Select Hotel</option>
+            <option value="Taj">Taj Hotel</option>
+            <option value="Oberoi">Oberoi Hotel</option>
+            <option value="ITC">ITC Hotel</option>
+        </select>
 
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
+    let hotel = document.getElementById("hotel").value;
+
+    let namePattern = /^[A-Za-z]+$/;
+    let phonePattern = /^[0-9]{10}$/;
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if (!name.match(namePattern)) {
+        alert("Invalid Name");
+        return false;
+    }
+
+    if (!phone.match(phonePattern)) {
+        alert("Invalid Phone Number");
+        return false;
+    }
+
+    if (!email.match(emailPattern)) {
+        alert("Invalid Email");
+        return false;
+    }
+
+    if (hotel === "") {
+        alert("Please select a hotel");
+        return false;
+    }
+
+    // Store selected hotel
+    localStorage.setItem("selectedHotel", hotel);
+
+    // Move to second screen
+    window.location.href = "details.html";
+    return false;
+}
+</script>
 </body>
 </html>
 
